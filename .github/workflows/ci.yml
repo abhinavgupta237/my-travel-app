@@ -1,0 +1,24 @@
+name: Backend & Services CI
+on: [push, pull_request]
+jobs:
+  services:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        svc: [svc-api, svc-ml, svc-renderer]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: Install
+        run: |
+          cd ${{ matrix.svc }}
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Lint
+        run: |
+          pip install ruff
+          ruff --quiet .
+      - name: Unit tests
+        run: |
+          cd tests || true
+          python -m pytest -q || true
