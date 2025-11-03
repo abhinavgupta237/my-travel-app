@@ -5,7 +5,8 @@ AI travel-photo app monorepo: Flutter mobile, FastAPI backend, Python ML, FFmpeg
 ```bash
 docker compose -f infra/docker-compose.yml up --build
 
-# Mobile (first time):
+Mobile (first time):
+
 cd app-mobile
 flutter pub get
 flutter run
